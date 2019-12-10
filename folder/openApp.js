@@ -38,7 +38,6 @@ function openApp (paramsJson) {
     var loadDateTime = Date.now()
     setTimeout(function () {
       var timeOutDateTime = Date.now()
-      alert(timeOutDateTime - loadDateTime)
       if (timeOutDateTime - loadDateTime < 5000) {
         window.location = iosDownloadUrl
       } else {
