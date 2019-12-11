@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>下载</title>
+  <style type="text/css">
+    .anim {
+      width: 80px;
+      height: 80px;
+      background: url('./app-download.png');
+      background-position: 0px 0px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="anim"></div>
+
+  <script>
+	// 动效来自帧的切换 前10帧为一个阶段 后6帧为一个阶段 鼠标移入顺序执行前10帧 鼠标悬停反复执行后6帧 鼠标移出倒序执行前10帧
+    var anim = document.querySelector(".anim"),
+		timer = null,
+		frameW = 80,
+		frameOneN = 10,
+		frameTwoN = 6
+
+    anim.addEventListener("mouseover", function () {
+      var n = 1,
+        posN = 1
+
+      clearInterval(timer)
+      timer = setInterval(function () {
+        posN = n++
+        
+        if (n > frameOneN) {
+          posN = frameOneN + n % frameTwoN
+          
+        }
+        anim.style.backgroundPositionX = -posN * frameW + 'px'
+      }, 100)
+    }, false);
+
+    anim.addEventListener('mouseout', function () {
+      var posN = frameTwoN
+
+      clearInterval(timer)
+      timer = setInterval(function () {
+        posN ++
+        anim.style.backgroundPositionX = posN * frameW + 'px'
+        if (posN >= frameOneN + frameTwoN) {
+          clearInterval(timer)
+          timer = null
+        }
+      }, 100)
+    }, false)
+  </script>
+</body>
