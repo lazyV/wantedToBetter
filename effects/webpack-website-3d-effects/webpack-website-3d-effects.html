@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>3D</title>
+  <style>
+    body {
+      background-color: grey;
+    }
+    .wrapper {
+      width: 200px;
+      height: 200px;
+      margin: 300px auto;
+      position: relative;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      -webkit-transform: rotateX(-33.5deg) rotateY(45deg);
+      transform: rotateX(-33.5deg) rotateY(45deg);
+    }
+
+    .outer, .inner {
+      width: 200px;
+      height: 200px;
+      display: inline-block;
+      transform-style: preserve-3d;
+    }
+    .outer {
+      transform: scale3d(1, 1, 1);
+      -webkit-transform: scale3d(1, 1, 1);
+      animation: gulu 18s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
+    }
+    .inner {
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+      position: absolute;
+      top: -3px;
+      left: 0;
+      transform: scale3d(0.5, 0.5, 0.5);
+      -webkit-transform: scale3d(0.5, 0.5, 0.5);
+      animation: guluback 18s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
+    }
+
+    .cover {
+      width: 200px;
+      height: 200px;
+      box-sizing: border-box;
+      border: 3px solid white;
+      position: absolute;
+      background-color: rgba(10, 84, 119, 0.349);
+      -webkit-transform-origin: center center;
+      transform-origin: center center;
+    }
+
+    .cover1 {
+      -webkit-transform: translate3D(-100px, 0, 0) rotateY(90deg);
+      transform: translate3D(-100px, 0, 0) rotateY(90deg);
+    }
+
+    .cover2 {
+      -webkit-transform: translate3D(100PX, 0px, 0) rotateY(-90deg);
+      transform: translate3D(100PX, 0px, 0) rotateY(-90deg);
+    }
+
+    .cover3 {
+      -webkit-transform: translate3D(0, 100px, 0) rotatex(90deg);
+      transform: translate3D(0, 100px, 0) rotatex(90deg);
+    }
+
+    .cover4 {
+      -webkit-transform: translate3D(0, -100px, 0) rotatex(90deg);
+      transform: translate3D(0, -100px, 0) rotatex(90deg);
+    }
+
+    .cover5 {
+      -webkit-transform: translate3D(0, 0, 100px) rotateY(0);
+      transform: translate3D(0, 0, 100px) rotateY(0);
+    }
+
+    .cover6 {
+      -webkit-transform: translate3D(0, 0, -100px) rotateY(0);
+      transform: translate3D(0, 0, -100px) rotateY(0);
+    }
+
+    .inner .cover {
+      border-width: 2px;
+      background-color: rgba(56, 131, 165, 1);
+    }
+
+    @keyframes gulu{
+      0% {
+        transform: rotateY(0);
+        -webkit-transform: rotateY(0);
+      }
+      11.11% {
+        transform: rotateY(0);
+        -webkit-transform: rotateY(0);
+      }
+      22.22% {
+        transform: rotateY(90deg);
+        -webkit-transform: rotateY(90deg);
+      }
+      33.33% {
+        transform: rotateY(90deg);
+        -webkit-transform: rotateY(90deg);
+      }
+      44.44% {
+        transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+      }
+      55.55% {
+        transform: rotateY(180deg);
+        -webkit-transform: rotateY(180deg);
+      }
+      66.66% {
+        transform: rotateY(270deg);
+        -webkit-transform: rotateY(270deg);
+      }
+      77.77% {
+        transform: rotateY(270deg);
+        -webkit-transform: rotateY(270deg);
+      }
+      88.88% {
+        transform: rotateY(360deg);
+        -webkit-transform: rotateY(360deg);
+      }
+      100% {
+        transform: rotateY(360deg);
+        -webkit-transform: rotateY(360deg);
+      }
+    }
+
+    @keyframes guluback{
+      0% {
+        transform: scale3d(-0., 0.5, 0.5) rotateY(0);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(0);
+      }
+      11.11% {
+        transform: scale3d(-0., 0.5, 0.5) rotateY(0);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(0);
+      }
+      22.22% {
+        transform: scale3d(0.5, 0.5, 0.5) rotateY(-90deg);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(-90deg);
+      }
+      33.33% {
+        transform: scale3d(0.5, 0.5, 0.5) rotateY(-90deg);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(-90deg);
+      }
+      44.44% {
+        transform: scale3d(0.5, 0.5, 0.5) rotateY(-180deg);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(-180deg);
+      }
+      55.55% {
+        transform: scale3d(0.5, 0.5, 0.5) rotateY(-180deg);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(-180deg);
+      }
+      66.66% {
+        transform: scale3d(0.5, 0.5, 0.5) rotateY(-270deg);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(-270deg);
+      }
+      77.77% {
+        transform: scale3d(0.5, 0.5, 0.5) rotateY(-270deg);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(-270deg);
+      }
+      88.88% {
+        transform: scale3d(0.5, 0.5, 0.5) rotateY(-360deg);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(-360deg);
+      }
+      100% {
+        transform: scale3d(0.5, 0.5, 0.5) rotateY(-360deg);
+        -webkit-transform: scale3d(0.5, 0.5, 0.5) rotateY(-360deg);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="outer">
+      <div class="cover cover1"></div>
+      <div class="cover cover2"></div>
+      <div class="cover cover3"></div>
+      <div class="cover cover4"></div>
+      <div class="cover cover5"></div>
+      <div class="cover cover6"></div>
+    </div>
+    <div class="inner">
+      <div class="cover cover1"></div>
+      <div class="cover cover2"></div>
+      <div class="cover cover3"></div>
+      <div class="cover cover4"></div>
+      <div class="cover cover5"></div>
+      <div class="cover cover6"></div>
+    </div>
+  </div>
+  
+</body>
+
+</html>
