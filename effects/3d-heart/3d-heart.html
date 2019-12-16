@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>3d 爱心</title>
+  <style>
+    body {
+      background: #000;
+    }
+
+    .heart_3D {
+      width: 100px;
+      height: 160px;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      margin: auto;
+      transform-style: preserve-3d;
+      transform-origin: center center;
+      animation: rotateHeart 5s linear infinite;
+    }
+
+    .heart_3D div {
+      width: 100%;
+      height: 100%;
+      border: 1px solid red;
+      border-width: 1px 1px 0 0;
+      border-radius: 50% 50% 50% /40% 50% 0%;
+      position: absolute;
+    }
+
+    @keyframes rotateHeart {
+      0% {
+        transform: rotate3d(1, 1, 0, 0deg);
+      }
+
+      100% {
+        transform: rotate3d(1, 1, 0, 360deg);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="heart_3D"></div>
+  <script>
+    const oHeart = document.getElementsByClassName("heart_3D")[0],
+      lineNum = 60
+    let lenAngle = null
+
+    for (let i = 1; i <= lineNum; i++) {
+      lenAngle = (360 / lineNum * i).toFixed(2)
+      let oDiv = document.createElement("div");
+      oDiv.style.transform = "rotateY(" + lenAngle + "deg) rotateZ(45deg) translateX(30px)";
+      oDiv.style.borderColor = rendomRgbaColor();
+      oHeart.appendChild(oDiv);
+    }
+
+    function rendomRgbaColor() {
+      return '#' + (Math.ceil(Math.random() * 16777215).toString(16).padStart(6, '0'))
+    }
+  </script>
+</body>
+
+</html>
