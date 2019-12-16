@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>container</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.6.1/css-doodle.min.js"></script>
+
+  <!-- :container是包含所有单元格的容器元素 因其继承:doodle的所有属性 所以可在其上设置 grid-gap -->
+  <css-doodle>
+    :doodle {
+      --s: 0;
+      @grid: 20 / 20vw;
+      overflow: hidden;
+    }
+
+    :container {
+      grid-gap: 1px;
+      transform: rotate(45deg) scale(1.5);
+    }
+    background: pink;
+  </css-doodle>
+  <css-doodle style="margin-top: 10px;">
+    :doodle {
+      --s: 0;
+      @grid: 20 / 20vw;
+      overflow: hidden;
+    }
+    :container {
+      grid-gap: 1px;
+      transform: rotate(45deg) scale(1.5);
+    }
+
+    :doodle(:hover) { --s: 1 }
+    
+    background: pink;
+    transition: .5s cubic-bezier(.175, .885, .32, 1.275);
+    transition-delay: @rand(500ms);
+    transform: translateY(calc(var(--s) * 100%));
+  </css-doodle>
+</body>
+</html>

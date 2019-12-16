@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>选择器</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.6.1/css-doodle.min.js"></script>
+  <!-- --s 定义变量 -->
+  <!-- :doodle 本身为一个特殊的选择器 选择每个组成单元元素 注意：组成单元的样式会被外部样式覆盖 -->
+  <css-doodle>
+    :doodle {
+      --s: 0;
+      @grid: 8 / 40vw;
+      grid-gap: 1px;
+    }
+    :doodle(:hover) { --s: 1 }
+    background: pink;
+    transition: .5s cubic-bezier(.175, .885, .32, 1.275);
+    transition-delay: @rand(500ms);
+    transform: translateY(calc(var(--s) * 100%));
+  </css-doodle>
+</body>
+</html>
