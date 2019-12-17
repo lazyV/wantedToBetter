@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>@use</title>
+  <style>
+    :root {
+      --rule-a: (
+        :doodle { @grid: 15 / 20vw; }
+        clip-path: circle(100% at 0 0);
+        background: teal;
+      );
+      --rule-b: (
+        background-image: radial-gradient(#fff 50%,transparent 50%);
+        background-position: -25% -25%;
+        background-size: @r(40%, 80%) @lr();
+        background-repeat: no-repeat;
+      );
+    }
+  </style>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.6.1/css-doodle.min.js"></script>
+
+  <css-doodle>
+    @use: var(--rule-a), var(--rule-b);
+  </css-doodle>
+
+</body>
+</html>

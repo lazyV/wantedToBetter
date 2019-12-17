@@ -4,23 +4,38 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>选择器</title>
+  <title>nth</title>
 </head>
 <body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.6.1/css-doodle.min.js"></script>
-  <!-- --s 定义变量 -->
-  <!-- :doodle 本身为一个特殊的选择器 选择每个组成单元元素 注意：组成单元的样式会被外部样式覆盖 -->
+
+  <!-- @nth(n, ...) == nth-child() -->
   <css-doodle>
     :doodle {
-      --s: 0;
-      @grid: 8 / 40vw;
+      @grid: 10 / 20vw;
       grid-gap: 1px;
     }
-    :doodle(:hover) { --s: 1 }
+
     background: pink;
-    transition: .5s cubic-bezier(.175, .885, .32, 1.275);
-    transition-delay: @rand(500ms);
-    transform: translateY(calc(var(--s) * 100%));
+
+    :nth-child(1) {
+      background: #60569e;
+    }
+
+    :nth-child(5) {
+      background: #60569e;
+    }
+
+    @nth(3n + 8) {
+      background: #e6437d;
+    }
+
+    @nth(1, 5, 3n + 8) {
+      ::after {
+        content: @index();
+        color: #fff;
+      }
+    }
   </css-doodle>
 </body>
 </html>

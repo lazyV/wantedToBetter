@@ -4,17 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>设置一列多行 并随机单元的宽度</title>
+  <title>@row @col</title>
 </head>
 <body>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.6.1/css-doodle.min.js"></script>
-  <css-doodle grid="35x1">
+  <!-- @row(n, ...) 也可以传 odd even -->
+  <css-doodle>
     :doodle {
-      grid-gap: 5px;
-      @size: 40vw;
+      @grid: 20 / 20vw;
+      grid-gap: 1px;
     }
-    background: pink;
-    width: @rand(5%, 100%);
+
+    background: #e5e5e5;
+
+    @row (odd) {
+      background: pink;
+    }
+
+    @row(1,3) {
+      background: orange;
+    }
+
+    @col(1,3) {
+      background:	teal;
+    }
+
   </css-doodle>
 </body>
 </html>

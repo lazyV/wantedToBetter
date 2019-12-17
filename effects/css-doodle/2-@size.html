@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>rand width</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/css-doodle/0.6.1/css-doodle.min.js"></script>
+  
+  <!-- 设置一列多行 并随机单元的宽度 -->
+  <css-doodle grid="35x1">
+    :doodle {
+      grid-gap: 1px;
+      @size: 20vw;
+    }
+    background: pink;
+    width: @rand(5%, 100%);
+  </css-doodle>
+
+  <!-- @size 传两个参数 -->
+  <css-doodle style="margin-top: 20px">
+    :doodle {
+      grid-gap: 1px;
+      @grid: 35x1;
+      @size: 20vw 10vw;
+    }
+    background: teal;
+    width: @rand(5%, 100%);
+  </css-doodle>
+
+  <!-- @min-size @max-size -->
+  <css-doodle style="margin-top: 20px">
+    :doodle {
+      grid-gap: 1px;
+      @grid: 5 / 10em;
+    }
+    @min-size: 1em;
+    @max-size: 8em;
+    background: teal;
+  </css-doodle>
+
+</body>
+</html>
