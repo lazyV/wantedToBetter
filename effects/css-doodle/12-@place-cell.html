@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>@place-cell</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  <css-doodle>
+      :doodle {
+        @grid: 1x5 / 20vw;
+        border: 1px solid #60569e;
+        margin: 100px auto;
+      }
+
+      @size: 1.6em;
+      background: rgba(255, 192, 203, .8);
+      
+      @nth(1) { @place-cell: 0 top; }
+      @nth(2) { @place-cell: right 25%; }
+      @nth(3) { @place-cell: center; }
+      @nth(4) { @place-cell: 0.8em calc(100% - .8em); }
+      @nth(5) { @place-cell: 75% 80%; }
+      
+      :after {
+        content: @index();
+        color: #fff;
+        font-size: .8em;
+      }
+    
+  </css-doodle>
+
+</body>
+</html>

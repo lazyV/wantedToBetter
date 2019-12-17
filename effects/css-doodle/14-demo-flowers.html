@@ -4,18 +4,31 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>rand-size</title>
+  <title>demo-flowers</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
   <script src="./js/css-doodle.min.js"></script>
-  <!-- 随机更改每个单元的大小 -->
+
   <css-doodle>
+
     :doodle {
-      @grid: 8 / 40vw;
-      grid-gap: 1px;
+      @grid: 10 / 100vw;
+      overflow: hidden;
     }
-    background: pink;
-    transform: scale(@rand(.2, .9));
+    @shape: clover 5;
+    background: hsla(
+      calc(360 - @i * 4),
+      70%, 68%, @r(.8)
+    );
+    transform: scale(@r(.2, 1.5)) translate(@m2(@r(±50%)));;
+
   </css-doodle>
+
 </body>
 </html>
