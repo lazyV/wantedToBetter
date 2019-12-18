@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Functions</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --svg-example: (
+        background-image: @svg(
+          <svg viewBox="0 0 100 175">
+            @repeat50(<path
+              stroke-width="@r.5"
+              stroke="@p(#60569e, #e6437d)"
+              d="M0, 0 L@r100, @r175"
+            />)
+          </svg>
+        );
+      );
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  
+  <h3>@svg</h3>
+  <p>直接使用SVG作为背景图像，更配@use</p>
+  <css-doodle class="change">
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+      @use: var(--svg-example);
+      background-repeat: no-repeat;
+    };
+  </css-doodle>
+
+</body>
+</html>

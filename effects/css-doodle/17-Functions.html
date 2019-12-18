@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Functions</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  
+  <h3>@multiple(times, value) Alias @m</h3>
+  <css-doodle class="change">
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    };
+    border-radius: @repeat(4, @rand(40%, 60%));
+    background: linear-gradient(
+      @rand(360deg),
+      @multiple(3, (
+        @pick-n(#60569e, #e6437d, #ebbf4d)
+          calc((@n - 1) * 100% / 3),
+        @lp
+          calc(@n * 100% / 3)
+      ))
+    );
+    transition: .2s;
+  </css-doodle>
+  
+  <h3>@n, @N  仅在@repeat和@multiple内部使用，以指示当前重复计数@n和最大计数值@N </h3>
+  <css-doodle class="change">
+    :doodle {
+      @grid: 5 / 40vw;
+    };
+    background: radial-gradient(
+      circle at @rand(100%) @rand(100%),
+      @multiple(20, (
+        @p(teal, orange) calc((@n - 1) * 100% / @N),
+        @lp calc(@n * 100% / @N)
+      ))
+    );
+    transition: .2s;
+  </css-doodle>
+  <p>从0.6.2开始，函数名称后的数字将被视为函数的第一个参数</p>
+    <css-doodle class="change">
+    :doodle {
+      @grid: 5 / 40vw;
+      grid-gap: 20px;
+    };
+    background-color: teal;
+    box-shadow: @m5(
+      calc(@n * 2px) calc(@n * 2px) 0 0 rgba(0, 128, 128, 0.3)
+    );
+  </css-doodle>
+
+  <script>
+    [...document.querySelectorAll('.change')].map(function (el) {
+      el.onclick = function () {
+        this.update()
+      }
+    })
+  </script>
+</body>
+</html>

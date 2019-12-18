@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Functions</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  
+  <h3>@math</h3>
+  <p>所有Math函数和常量都可以加前缀@</p>
+  <css-doodle>
+    
+    :doodle {
+      @grid: 9x9;
+      @size: 20vw;
+    }
+    --num: @abs(@abs(@row - 5) + @abs(@col - 5) - 9);
+    background: rgba(
+      0, 128, 128, calc(var(--num) / 9)
+    );
+    will-change: transform;
+    transform: rotate(15deg) scale(calc(var(--num) / 9));
+    
+  </css-doodle>
+  <css-doodle style="margin-top: 20px;">
+    :doodle {
+      @grid: 60x1 / 10vw 20vw;
+      transform: rotate(-15deg);
+    }
+    @size: 75.8% 1px;
+    justify-self: center;
+    background: teal;
+    opacity: calc(1 - @i / @size);
+    transform: translateX(calc(@sin(@i / 4) * π * 10px));
+  </css-doodle>
+</body>
+</html>

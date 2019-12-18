@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Functions</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  
+  <h3>@index() Alias @i()</h3>
+  <p>不传参可省略括号</p>
+  <css-doodle>
+    :doodle {
+      @grid: 10 / 20vw;
+      grid-gap: 1px;
+    }
+    background: teal;
+    :after {
+      content: @i;
+      color: white;
+    }
+  </css-doodle>
+  <p>example</p>
+  <css-doodle>
+    :doodle {
+      @grid: 10x1/ 20vw;
+    }
+
+    @place-cell: center;
+    @size: calc(100%/10*@i);
+    opacity: calc(1.1 - 1 / 10 * @index);
+    background: teal;
+  </css-doodle>
+
+  <h3>@row @col</h3>  
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    }
+    background: teal;
+    :after {
+      content: (@row,@col);
+      color: white;
+    }
+  </css-doodle>
+  
+  <h3>@size-row 行数</h3>
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    }
+    background: teal;
+    :after {
+      content: @row / @size-row;
+      color: white;
+    }
+  </css-doodle>
+
+  <h3>@size-col 列数</h3>
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    }
+    background: teal;
+    :after {
+      content: @col / @size-col;
+      color: white;
+    }
+  </css-doodle>
+
+  <h3>@size 格数</h3>
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    }
+    background: teal;
+    :after {
+      content: @i / @size;
+      color: white;
+    }
+  </css-doodle>
+  <p>example</p>
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    };
+    background: rgba( 0, 128, 128, calc(@row * @col / @size));
+  </css-doodle>
+
+  <h3>@pick(v1, v2,...) Alias @p</h3>
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    };
+    background: teal;
+    opacity: @pick(1, .6, .3, .1);
+    :after {
+      content: @pick(1, 2, 3, 4, @i);
+      color: white;
+    }
+  </css-doodle>
+
+  <h3>@pick-n(v1, v2,...) Alias @pn</h3>
+  <p>顺序选取</p>
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    };
+    background: teal;
+    opacity: @pick-n(1, .6, .3, .1);
+    :after {
+      content: @pick-n(1, 2, 3, 4);
+      color: white;
+    }
+  </css-doodle>
+  
+  <h3>@pick-d(v1, v2,...) Alias @pd</h3>
+  <p>和@pick-n类似 但有一定的随机性</p>
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    };
+    background: teal;
+    opacity: @pick-d(1, .6, .3, .1);
+    :after {
+      content: @pick-d(1, 2, 3, 4);
+      color: white;
+    }
+  </css-doodle>
+  <h3>@rand(start [,end]) Alias @r </h3>
+  <p>取随机值 @rand(a, z);  @rand(.4em, 1.2em); etc...</p>
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+    }
+    background: rgba(0, 128, 128, @rand(.9));
+    transition: .2s ease @rand(200ms);
+    will-change: transform;
+    transform: rotate(@rand(360deg));
+    clip-path: polygon(
+      @rand(100%) 0, 100% @rand(100%), 0 @rand(100%)
+    );
+  </css-doodle>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Functions</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  
+  <h3>@last-pick, @last-rand Alias @lp @lr 获取上一次@pick, @pick-n, @pick-d, @rand选择的值</h3>
+  <css-doodle>
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    };
+    background: linear-gradient(
+      @pick-d(45deg, -45deg),
+      @pick(teal, orange),
+      rgba(255, 255, 255, 1),
+      @last-pick()
+    );
+  </css-doodle>
+
+  <h3>@repeat(times, value) Alias @rep</h3>
+  <css-doodle id="changePos">
+    :doodle {
+      @grid: 5 / 20vw;
+      grid-gap: 1px;
+    };
+    border-radius: @repeat(4, @rand(40%, 60%));
+    background: teal;
+    transition: .2s;
+    :after {
+      content: '';
+      position: absolute;
+      @size: @rand(3px, 8px);
+      border-radius: 50%;
+      background: #@repeat(6, @pick([0-9a-f]));
+      transition: .2s;
+      top: @rand(20%, 80%);
+      left: @rand(20%, 80%);
+    };
+  </css-doodle>
+  <script>
+    document.getElementById('changePos').onclick = function () {
+      this.update()
+    }
+  </script>
+</body>
+</html>
