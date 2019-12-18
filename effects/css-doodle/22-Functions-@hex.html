@@ -30,5 +30,22 @@
       font-size: 1.2em;
     }
   </css-doodle>
+  <br>
+  <br>
+  <br>
+  <p>example</p>
+  <css-doodle>
+    :doodle {
+      @grid: 20 / 100vmax;
+      background: black;
+      font-family: sans-serif;
+      overflow:　hidden;
+    }
+    :after {
+      content: \@hex(@r(0x2500, 0x257f));
+      color: hsla(@r360, 70%, 70%, @r.9);
+      font-size: 5vmax;
+    }
+  </css-doodle>
 </body>
 </html>
