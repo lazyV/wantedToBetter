@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Functions</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  
+  <h3>@hex(num)</h3>
+  <p>将数字转换为十六进制格式。</p>
+  <css-doodle>
+    
+    :doodle {
+      @grid: 9x9;
+      @size: 30vw;
+    }
+
+    :after {
+      content: \@hex(@rand(9527, 9687));
+      color: teal;
+      font-size: 1.2em;
+    }
+  </css-doodle>
+</body>
+</html>
