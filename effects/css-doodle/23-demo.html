@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Functions</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    .gradient {
+      width: 100vw;
+      height: 40vh;
+      overflow: hidden;
+      background-color: white;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  <section class="gradient">
+    <css-doodle>    
+      :doodle {
+        @grid: 1 / 100%;
+        position: absolute;
+        transform: scale(2);
+        background: @m200(
+          linear-gradient(
+            @p(to top, to bottom),
+            @p(#FFE7B8, #FEF6F0, #D0EEDA),
+            @p(@lp(), rgba(255, 255, 255, 0))
+          )
+          @ms2(@r(0, 100%)) / @r(2px) @r(50px)
+          no-repeat
+        );
+      }
+    </css-doodle>
+  </section>
+</body>
+</html>
