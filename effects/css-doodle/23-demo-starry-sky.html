@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>starry sky</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    section {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  <section>
+    <css-doodle>
+			:doodle {
+        @grid: 18 / 100%;
+        background: linear-gradient(to bottom, #010A10 30%, #59230B 80%, #2F1107 100%);
+			}
+			
+			transition: .2s cubic-bezier(.175, .885, .32, 1.275) @rand(300ms);
+			background: rgb(@rand(100, 240), @rand(200, 240), 240);
+			opacity: @pick(0.1, 0.2, .3, .5, .4, .7 .8, 1);
+			@shape: circle;
+			@size: @rand(5px);
+			@place-cell: @rand(100%) @rand(100%);
+			
+			@random {
+				@shape: bud 5;
+				@size: @rand(8px);
+				transform: rotate(@rand(180deg));
+			}
+		</css-doodle>
+  </section>
+</body>
+</html>

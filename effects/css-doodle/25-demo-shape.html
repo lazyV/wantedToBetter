@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>vertical line background</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    section {
+      width: 30vw;
+      height: 30vw;
+      overflow: hidden;
+      background-color: teal;
+      position: relative;
+      margin: 10vh auto;
+    }
+  </style>
+</head>
+<body>
+  <script src="./js/css-doodle.min.js"></script>
+  <section>
+    <css-doodle>
+      :doodle {
+        @grid: 30x3 / 30vw;
+      }
+    
+      @place-cell: center;
+      @size: calc(100% / @size() * @i() * 2);
+      transform: rotate(calc(@i() * 5deg));
+      border-radius: 30%;
+      border: 1px solid #8de7eb;
+      opacity: @pick-n(.6, .3, .2, .1);
+    </css-doodle>
+  </section>
+</body>
+</html>
