@@ -1,0 +1,15 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+  <circle cx="120" cy="120" r="95" stroke="orange" stroke-width="5" fill="pink"/>
+
+</svg>
+
+<!-- 
+  
+  <circle> 标签可用来创建一个圆。
+
+  cx 和 cy 属性定义圆点的 x 和 y 坐标。如果省略 cx 和 cy，圆的中心会被设置为 (0, 0)
+  
+-->

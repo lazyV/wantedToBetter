@@ -1,0 +1,24 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" version="1.1" xmlns="http://www.w3.org/2000/svg">
+
+  <path d="M250 150 L150 350 L350 350 Z" />
+
+</svg>
+
+<!-- 
+  
+  <path> 标签用来定义路径
+
+  M = moveto 移动到新的位置
+  L = lineto 从当前坐标画一条直线到一个新坐标
+  H = horizontal lineto 画一条水平线到新坐标
+  V = vertical lineto 画一条垂直线到新坐标
+  C = curveto 曲线
+  S = smooth curveto 平滑曲线
+  Q = quadratic Belzier curve 二次贝塞尔曲线
+  T = smooth quadratic Belzier curveto 平滑二次贝塞尔曲线
+  A = elliptical Arc 椭圆弧形
+  Z = closepath 关闭当前路径
+  
+-->
