@@ -30,14 +30,14 @@
   <path> 标签用来定义路径
 
   M m = moveto 移动到新的位置
-  L l = lineto 从当前坐标画一条直线到一个新坐标
-  H h = horizontal lineto 画一条水平线到新坐标
-  V v = vertical lineto 画一条垂直线到新坐标
-  C c = curveto 曲线
-  S s = smooth curveto 平滑曲线
+  L l = lineto 从当前坐标画直线到一个新坐标
+  H h = horizontal lineto 画水平线到新坐标
+  V v = vertical lineto 画垂直线到新坐标
+  C c = curveto 相当于cubicTo(),三次贝塞尔曲线
+  S s = smooth curveto 平滑三次贝塞尔曲线
   Q q = quadratic Belzier curve 二次贝塞尔曲线
   T t = smooth quadratic Belzier curveto 平滑二次贝塞尔曲线
-  A a = elliptical Arc 椭圆弧形
+  A a = elliptical Arc 画弧
   Z z = closepath 关闭当前路径
   
   大写表示绝对定位，小写表示相对定位

@@ -31,17 +31,11 @@ stroke-width="2" fill="red"/>
 代码解释：
 
   第一行包含了 XML 声明。请注意 standalone 属性！该属性规定此 SVG 文件是否是“独立的”，或含有对外部文件的引用。standalone="no" 意味着 SVG 文档会引用一个外部文件 - 在这里，是 DTD 文件。
-
   第二和第三行引用了这个外部的 SVG DTD。该 DTD 位于 “http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd”。该 DTD 位于 W3C，含有所有允许的 SVG 元素。
-
   SVG 代码以 <svg> 元素开始，包括开启标签 <svg> 和关闭标签 </svg> 。这是根元素。width 和 height 属性可设置此 SVG 文档的宽度和高度。version 属性可定义所使用的 SVG 版本，xmlns 属性可定义 SVG 命名空间。
-
   SVG 的 <circle> 用来创建一个圆。cx 和 cy 属性定义圆中心的 x 和 y 坐标。如果忽略这两个属性，那么圆点会被设置为 (0, 0)。r 属性定义圆的半径。
-
   stroke 和 stroke-width 属性控制如何显示形状的轮廓。我们把圆的轮廓设置为 2px 宽，黑边框。
-
   fill 属性设置形状内的颜色。我们把填充颜色设置为红色。
-
   关闭标签的作用是关闭 SVG 元素和文档本身。
 
 
@@ -50,7 +44,6 @@ HTML 页面中的 SVG (仅作了解)
   <embed src="rect.svg" width="300" height="100"  type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
   <object data="rect.svg" width="300" height="100"  type="image/svg+xml" codebase="http://www.adobe.com/svg/viewer/install/" />
   <iframe src="rect.svg" width="300" height="100"></iframe>
-
 
 
 SVG 形状
@@ -62,3 +55,78 @@ SVG 形状
   折线 <polyline>
   多边形 <polygon>
   路径 <path>
+
+
+SVG 滤镜
+
+  feBlend
+  feColorMatrix
+  feComponentTransfer
+  feComposite
+  feConvolveMatrix
+  feDiffuseLighting
+  feDisplacementMap
+  feFlood
+  feGaussianBlur
+  feImage
+  feMerge
+  feMorphology
+  feOffset
+  feSpecularLighting
+  feTile
+  feTurbulence
+  feDistantLight
+  fePointLight
+  feSpotLight
+
+  必须在 <defs> 标签中定义 SVG 滤镜。
+  <filter> 标签使用必需的 id 属性来定义向图形应用哪个滤镜
+  <filter> 标签必须嵌套在 <defs> 标签内
+  <defs> 标签是 definitions 的缩写，它允许对诸如滤镜等特殊元素进行定义
+  
+
+
+SVG 渐变
+
+  渐变是一种从一种颜色到另一种颜色的平滑过渡，可以把多个颜色的过渡应用到同一个元素上
+  
+  包括
+    线性渐变 linearGradient 和 径向渐变 radialGradient
+  
+  线性渐变 （可被定义为水平、垂直或角形的渐变）
+
+    <defs>
+      <linearGradient id="orange_red" x1="0%" y1="0%" x2="100%" y2="0%">
+        <stop offset="0%" style="stop-color:rgb(255,255,0); stop-opacity:1"/>
+        <stop offset="100%" style="stop-color:rgb(255,0,0); stop-opacity:1"/>
+      </linearGradient>
+    </defs>
+    <ellipse cx="200" cy="190" rx="85" ry="55" style="fill:url(#orange_red)"/>
+
+    当 y1 和 y2 相等，而 x1 和 x2 不同时，可创建水平渐变
+    当 x1 和 x2 相等，而 y1 和 y2 不同时，可创建垂直渐变
+    当 x1 和 x2 不同，且 y1 和 y2 不同时，可创建角形渐变
+
+    <linearGradient> 标签的 id 属性可为渐变定义一个唯一的名称
+    fill:url(#orange_red) 属性把 ellipse 元素链接到此渐变
+    <linearGradient> 标签的 x1、x2、y1、y2 属性可定义渐变的开始和结束位置
+    渐变的颜色范围可由两种或多种颜色组成
+    每种颜色通过一个 <stop> 标签来规定
+    offset 属性用来定义渐变的开始和结束位置。
+
+
+  径向渐变
+    <defs>
+      <radialGradient id="grey_blue" cx="50%" cy="50%" r="50%" fx="50%" fy="50%">
+        <stop offset="0%" style="stop-color:rgb(200,200,200); stop-opacity:0"/>
+        <stop offset="100%" style="stop-color:rgb(0,0,255); stop-opacity:1"/>
+      </radialGradient>
+    </defs>
+
+    <radialGradient> 标签的 id 属性可为渐变定义一个唯一的名称
+    fill:url(#grey_blue) 属性把 ellipse 元素链接到此渐变
+    cx、cy 和 r 属性定义外圈
+    fx 和 fy 定义内圈
+    渐变的颜色范围可由两种或多种颜色组成
+    每种颜色通过一个 <stop> 标签来规定
+    offset 属性用来定义渐变的开始和结束位置。
