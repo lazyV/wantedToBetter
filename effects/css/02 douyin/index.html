@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>【抖音短视频】记录美好生活-Douyin.com</title>
+    <meta name="keywords" content="抖音、抖音音乐、抖音短视频、抖音官网、amemv">
+    <meta name="description" content="抖音短视频，一个旨在帮助大众用户表达自我，记录美好生活的短视频分享平台。应用人工智能技术为用户创造丰富多样的玩法，让用户在生活中轻松快速产出优质短视频。">
+    <link rel="icon" type="image/x-icon" href="./images/favicon_v2_7145ff0.ico">
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        html,
+        body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            min-width: 1200px;
+        }
+
+        .video_bg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .video_el {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .container .content {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .content .header {
+            height: 120px;
+        }
+
+        .content .header_left {
+            height: 100%;
+            float: left;
+            margin-left: 80px;
+        }
+
+        .content .header_left>a {
+            height: 100%;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: flex;
+            -webkit-box-align: center;
+            align-items: center;
+        }
+
+        .content .header_right {
+            float: right;
+            margin-right: 150px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .header_right ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .header_right ul li {
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 25px;
+        }
+
+        .header_right ul li a {
+            text-decoration: none;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, .7);
+        }
+
+        .download {
+            position: absolute;
+            right: 150px;
+            top: 325px;
+        }
+
+        .download .slogan {
+            margin-bottom: 50px;
+        }
+
+        .download .bnt_list {
+            float: right;
+            letter-spacing: -4px;
+            font-size: 0;
+        }
+
+        .download .bnt_list>a {
+            float: right;
+            position: relative;
+            width: 50px;
+            height: 50px;
+            background-image: url("./images/1.png");
+            background-size: cover;
+        }
+
+        .download .bnt_list>.btn-primary {
+            display: inline-block;
+            margin-right: 15px;
+        }
+
+        .bnt_list>a,
+        .bnt_list>.btn-primary {
+            border-radius: 5px;
+            box-shadow: 1px 1px 7px 2px rgba(0, 0, 0, 0.5);
+            background: #fff;
+        }
+        
+        .bnt_list>.btn-primary {
+            overflow: hidden;
+        }
+
+        .download .bnt_list>a img {
+            width: 223px;
+            position: absolute;
+            right: 0;
+            top: 0;
+            -webkit-transform: scale(0.23);
+            transform: scale(0.23);
+            -webkit-transform-origin: top right;
+            transform-origin: top right;
+            opacity: 0;
+            -webkit-transition: .3s all;
+            transition: .3s all;
+        }
+
+        .bnt_list>.btn-primary img,
+        .download .bnt_list,
+        .download .bnt_list>a img {
+            transition: all 0.2s linear;
+        }
+
+        .bnt_list>.btn-primary img:hover {
+            filter: opacity(0.5);
+        }
+
+        .download .bnt_list>a:hover ~ .btn-primary {
+            opacity: 0;
+        }
+
+        .download .bnt_list>a img:hover {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .dy_icon {
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .unmute {
+            background-image: url("./images/unmute.png");
+        }
+
+        .mute {
+            background-image: url("./images/mute.png");
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="video_bg">
+            <video src="./video/bg.mp4" muted autoplay loop class="video_el" id="bgVideo"></video>
+        </div>
+        <div class="content">
+            <div class="header">
+                <div class="header_left">
+                    <a href="/">
+                        <img src="./images/logo.png" alt="logo">
+                    </a>
+                </div>
+                <div class="header_right">
+                    <ul>
+                        <li>
+                            <a href="#">视频上传</a>
+                        </li>
+                        <li>
+                            <a href="#">抖音好物联盟</a>
+                        </li>
+                        <li>
+                            <a href="#">抖音特效师</a>
+                        </li>
+                        <li>
+                            <a href="#">抖音音乐人</a>
+                        </li>
+                        <li>
+                            <a href="#">机构认证</a>
+                        </li>
+                        <li>
+                            <a href="#">企业认证</a>
+                        </li>
+                        <li>
+                            <div class="dy_icon unmute" id="muteIcon"></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="download">
+                <div class="slogan">
+                    <img src="./images/0.png" alt="">
+                </div>
+                <div class="bnt_list">
+                    <a href="#">
+                        <img src="./images/1.1.png" alt="slogan">
+                    </a>
+                    <div class="btn-primary">
+                        <a href="#">
+                            <img src="./images/2.png" alt="slogan">
+                        </a>
+                    </div>
+                    <div class="btn-primary">
+                        <a href="#">
+                            <img src="./images/3.png" alt="slogan">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer"></div>
+        </div>
+    </div>
+</body>
+<script>
+    var oVideo = document.querySelector("#bgVideo");
+    var oMuteIcon = document.querySelector("#muteIcon");
+    oMuteIcon.addEventListener("click",function(e) {
+        if (oMuteIcon.className.indexOf("unmute") != -1) {
+            oMuteIcon.className = "dy_icon mute";
+            oVideo.muted = false;
+        } else {
+            oMuteIcon.className = "dy_icon unmute";
+            oVideo.muted = true;
+        }
+    }, false)
+</script>
+</html>
