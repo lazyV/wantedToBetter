@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>audio</title>
+    <style>
+        body {padding: 0;margin: 0;}
+        #canvas{
+            display:block;
+            background: linear-gradient(135deg, rgb(255, 255, 255) 0% , rgb(255, 228, 219) 100%);
+        }
+    </style>
+</head>
+<body>
+    <audio src="source/02.mp3" id="vvAudio"></audio>
+    <canvas id="canvas"></canvas>
+    <script>
+        window.onload=function() {
+            var vvAudio = document.getElementById('vvAudio');
+            var canvas = document.getElementById('canvas')
+            canvas.width = window.innerWidth
+            canvas.height = window.innerHeight
+            var oW = canvas.width
+            var oH = canvas.height
+            var count = 60
+
+            var oCtx =new (window.AudioContext || window.webkitAudioContext)()
+            var audioSrc = oCtx.createMediaElementSource(vvAudio) //从元素创建媒体节点
+            var analyser = oCtx.createAnalyser()
+            audioSrc.connect(analyser)
+            analyser.connect(oCtx.destination)
+
+            var cCtx = canvas.getContext('2d')
+            // canvas的线性渐变(家变从中间向上)
+            var color = cCtx.createLinearGradient(oW/2,oH/2-30,oW/2,oH/2-100)
+            color.addColorStop(0,'#4faaa7')
+            color.addColorStop(0.5,'#adedae')
+            color.addColorStop(1,'#f3a982')
+
+            var voiceHeight = new Uint8Array(analyser.frequencyBinCount)
+            // 绘制音频图的方法
+            function draw(){
+                analyser.getByteFrequencyData(voiceHeight)
+                var step = Math.round(voiceHeight.length/count)
+                cCtx.clearRect(0,0,oW,oH)
+                for(var i=0;i<count;i++){
+                    // 获取每个音频条的高度
+                    var audioHeight = voiceHeight[i*step]
+                    cCtx.fillStyle = color
+                    cCtx.fillRect(oW/2+i*12,oH/2,7,-audioHeight)
+                    cCtx.fillRect(oW/2-i*12,oH/2,7,-audioHeight)
+                }
+            }
+           setInterval(draw,20)
+        }
+
+        canvas.addEventListener('click',ctrl,false)
+        function ctrl() {
+            vvAudio.paused?vvAudio.play():vvAudio.pause()
+        }
+    </script>
+</body>
+</html>
