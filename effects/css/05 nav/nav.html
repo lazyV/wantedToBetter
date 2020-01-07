@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>css navigator effection</title>
+    <style>
+        body,ul{
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul {
+            min-width: 700px;
+        }
+
+        nav ul li{
+            list-style: none;
+            float: left;
+            width: 10%;
+            line-height: 45px;
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            
+        }
+
+        nav li::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 100%;
+            width: 0;
+            height: 100%;
+            border-bottom: 2px solid #333;
+            transition: all .5s;
+        }
+
+        nav li:hover::before {
+            left: 0;
+            width: 100%;
+        }
+
+        nav li:hover ~ li::before {
+            left: 0;
+        }
+
+        /* 
+            nav li:hover ~ li::before
+            通过以上选择器 选择 li:hover 后面的所有 li::before 元素
+         */
+    </style>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li>html</li>
+            <li>css</li>
+            <li>javascript</li>
+            <li>vue</li>
+            <li>angular</li>
+            <li>react</li>
+            <li>react</li>
+            <li>node.js</li>
+            <li>demo</li>
+            <li>study</li>
+        </ul>
+    </nav>
+</body>
+</html>

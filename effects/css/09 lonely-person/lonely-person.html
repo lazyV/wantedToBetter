@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CSS-行走的小人</title>
+    <style>
+        body{
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: radial-gradient(lightgray 20%, whitesmoke);
+        }
+        .man{
+            width: 12em;
+            height: 33em;
+            font-size: 10px;
+            position: relative;
+        }
+        .man{
+            color: white;
+        }
+        .head{
+            position: absolute;
+            width: 7em;
+            height: 7em;
+            background-color: currentColor;
+            border-radius: 50%;
+            right: 0;
+        }
+        .eye{
+            position: absolute;
+            width: 0.2em;
+            height: 1.2em;
+            background-color: #666;
+            border-radius: 0.1em;
+            transform: rotate(45deg);
+            right: 1.6em;
+            top: 5.1em; 
+        }
+        .body{
+            position: absolute;
+            width: 6.2em;
+            height: 14.4em;
+            top: 7em;
+            background-color: currentColor;
+            border-radius: 100% 20% 0 0;
+        }
+        .feet::before,.feet::after{
+            content: '';
+            position: absolute;
+            width: 4em;
+            height: 1.4em;
+            background-color: white;
+            bottom: 0;
+            left: -1.6em;
+            border-radius: 1em 80% 0.4em 0.4em;
+        }
+        /* 阴影 */
+        .man::before{
+            content: '';
+            position: absolute;
+            width: 12em;
+            height: 0.8em;
+            background-color: rgba(0,0,0,0.1);
+            bottom: -0.2em;
+            left: -3em;
+            border-radius: 50%;
+        }
+        /* 添加动画 */
+        .feet::before,.feet::after{
+            animation: feet-animation 2s ease-in-out infinite;
+        }
+        .feet::after{
+            animation-delay: 1s;
+        }
+
+        /* 定义脚步行走动画 */
+        @keyframes feet-animation{
+            20%{
+                transform: translateX(3.4em) translateY(-1.6em) rotate(4deg);
+            }
+            30%{
+                transform: translateX(4.6em) translateY(-1em) rotate(0deg);
+            }
+            40%{
+                transform: translateX(5.6em) translateY(-0.6em) rotate(4deg);
+            }
+            44%{
+                transform: translateX(5.6em) translateY(0) rotate(0deg);
+            }
+        }
+
+        .head,.body{
+            animation: body-animation 4s ease-in-out infinite;
+        }
+        /* 身体的动态效果 */
+        @keyframes body-animation{
+            0%,100%{
+                transform: translateY(0) skewX(-2deg);
+            }
+            25%, 75%{
+                transform: translateY(0.5em) skewX(0deg);
+            }
+            50%{
+                transform: translateY(0) skewX(0deg);
+            }
+        }
+
+        .man::before{
+            animation: shadow-animate 4s ease-in-out infinite;
+        }
+
+        @keyframes shadow-animate{
+            0%,50%,100%{
+                transform: scale(1);
+            }
+            25%, 75%{
+                transform: scale(1.15);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="man">
+        <span class="head"><span class="eye"></span></span>
+        <span class="body"></span>
+        <span class="feet"></span>
+    </div>
+</body>
+</html>
