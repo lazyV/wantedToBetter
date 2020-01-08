@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas-birds-demo</title>
+    <style>
+        *{
+            padding: 0; 
+            margin: 0;
+        }
+        canvas {
+            display: block;
+            background: black;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <canvas width="1090" height="759"></canvas>
+    <script>
+        /**
+         * 鸟群构造函数
+         * @param {number} count 鸟群中鸟的个数
+         */
+        function Birds(count) {
+            var speed = 0.4; //鸟群速度
+            var target = {
+                x: 0.5,
+                y: 0.5,
+                z: 0.5
+            }; //鸟群目标点
+            var width = document.documentElement.clientWidth;
+            var height = document.documentElement.clientHeight;
+            var cvs = document.querySelector('canvas');
+            var ctx = cvs.getContext('2d');
+            cvs.width = width;
+            cvs.height = height;
+            var birds = []; //鸟群数组
+            var count = count || 50; //鸟的个数
+            var colorVal = 0; //鸟后面的尾光颜色控制 （0-255 色相值）
+            var viewZ = {
+                current: 1,
+                target: 1
+            }; //视角景深控制
+            var birdLineCount = 11; //鸟尾光线点个数
+
+            /**
+             * 鸟构造函数
+             * @param {number} length 鸟的身长
+             */
+            function Bird(length) {
+                this.length = length || 50;
+                this.speed = (0.3 + Math.random() * 0.7) / 2000, //个体飞行速度
+                this.pos = { //当前位置
+                    x: 0.25 + Math.random() * 0.5,
+                    y: 0.25 + Math.random() * 0.5,
+                    z: Math.random()
+                };
+                this.move = { //当前实际移动速度
+                    x: 0,
+                    y: 0,
+                    z: 0
+                };
+                this.ownMove = { //自身随意移动控制参数
+                    t: 20 + Math.random() * 100 | 0,
+                    x: 0,
+                    y: 0
+                };
+                this.bodyPoint = [ //身体轮廓点数组
+                    [0, 0],
+                    [0.1, 0.06],
+                    [0.03, 0.13],
+                    [0.2, 0.03],
+                    [0.56, 0.2],
+                    [0.83, 0.03],
+                    [1, 0],
+                    [0.93, -0.03],
+                    [0.76, -0.16],
+                    [0.2, -0.03],
+                    [0.03, -0.13],
+                    [0.1, -0.06]
+                ];
+                this.wingPoint = [ //翅膀轮廓点数组
+                    [
+                        [0.36, 0],
+                        [0.36, -0.6],
+                        [0.73, -0.3],
+                        [0.73, 0]
+                    ],
+                    [
+                        [0.36, 0],
+                        [0.23, -0.4],
+                        [0.66, -0.23],
+                        [0.73, 0]
+                    ],
+                    [
+                        [0.36, 0],
+                        [0.13, -0.2],
+                        [0.56, -0.13],
+                        [0.73, 0]
+                    ],
+                    [
+                        [0.36, 0],
+                        [0.7, 0],
+                        [0.53, 0.3]
+                    ],
+                    [
+                        [0.36, 0],
+                        [0.13, -0.2],
+                        [0.56, -0.13],
+                        [0.73, 0]
+                    ],
+                    [
+                        [0.36, 0],
+                        [0.23, -0.4],
+                        [0.66, -0.23],
+                        [0.73, 0]
+                    ]
+                ];
+                this.wingIndex = Math.random() * 3 | 0, //当前wingPoint索引
+                this.line = []; //尾光点数组
+            }
+
+            /**
+             * 绘制鸟函数
+             * @return {object} 当前鸟对象
+             */
+            Bird.prototype.draw = function () {
+                var len = this.length * this.pos.z * viewZ.current;
+                var a = Math.atan2(this.move.y, this.move.x);
+                ctx.save();
+                ctx.beginPath();
+                ctx.fillStyle = `hsl(${colorVal%360}, 100%, 85%)`; // 色相 饱和度 明度 色彩模式
+                ctx.translate(width * this.pos.x, height * this.pos.y);
+                ctx.rotate(a);
+                //画身体
+                ctx.moveTo(0, 0);
+                this.bodyPoint.forEach(function (item) {
+                    ctx.lineTo(item[0] * len, item[1] * len);
+                });
+                ctx.closePath();
+                ctx.fill();
+                //画翅膀
+                var idx = ~~this.wingIndex;
+                idx %= 6;
+                var wp = this.wingPoint[idx];
+                ctx.beginPath();
+                wp.forEach(function (item) {
+                    ctx.lineTo(item[0] * len, item[1] * len)
+                });
+                ctx.closePath();
+                ctx.fill();
+                ctx.restore();
+
+                //画尾光
+                var line = this.line;
+                var prop = 1 / birdLineCount * this.length * this.pos.z / 10;
+                for (var i = 1, lenth = line.length; i <lenth - 1; i++) {
+                    ctx.beginPath();
+                    ctx.lineWidth = i * prop;
+                    ctx.strokeStyle = `hsla(${(colorVal+i)%360},100%, 50%,${i / birdLineCount})`;
+                    ctx.moveTo(line[i - 1].x * width, line[i - 1].y * height)
+                    ctx.lineTo(line[i].x * width, line[i].y * height);
+                    ctx.stroke();
+                }
+                return this;
+            }
+
+            /**
+             * 鸟状态更新
+             * @return {object} 当前鸟对象
+             */
+            Bird.prototype.update = function () {
+                var move = this.move;
+                var pos = this.pos;
+                var ownMove = this.ownMove;
+                var spd = this.speed;
+
+                this.wingIndex += this.speed * 600;
+
+                ['x', 'y', 'z'].forEach(function (key) {
+                    if (Math.abs(move[key]) > 0.003) {
+                        move[key] *= 0.99;
+                    }
+                });
+
+                if (colorVal % ownMove.t === 0) {
+                    ownMove.x = (0.5 - Math.random()) / 3;
+                    ownMove.y = (0.5 - Math.random()) / 3;
+                }
+
+                move.x += speed * (target.x - pos.x + ownMove.x) * spd;
+                move.y += speed * (target.y - pos.y + ownMove.y) * spd;
+                move.z += speed * (target.z - pos.z) * spd;
+
+                pos.x += move.x;
+                pos.y += move.y;
+                pos.z += move.z;
+
+                this.line.push({
+                    x: pos.x,
+                    y: pos.y
+                });
+                if (this.line.length > birdLineCount) this.line.shift();
+                return this;
+            }
+
+            function prepare() {
+                for (var i = 0; i < count; i++) {
+                    birds.push(new Bird());
+                }
+                window.addEventListener('resize', function () {
+                    width = document.documentElement.clientWidth;
+                    height = document.documentElement.clientHeight;
+                    cvs.width = width;
+                    cvs.height = height;
+                });
+
+                setInterval(function () {
+                    target.x = Math.random();
+                    target.y = Math.random();
+                    viewZ.target = 0.5 + Math.random();
+                }, 1000);
+            }
+
+            function clear() {
+                ctx.clearRect(0, 0, width, height);
+            }
+
+            function render() {
+                clear();
+                colorVal++;
+                viewZ.current += (viewZ.target - viewZ.current) / 100;
+                birds.forEach(function (bird) {
+                    bird.update().draw();
+                });
+                requestAnimationFrame(render);
+            }
+
+            this.run = function () {
+                prepare();
+                render();
+            }
+        }
+        new Birds().run();
+    </script>
+</body>
+
+</html>
