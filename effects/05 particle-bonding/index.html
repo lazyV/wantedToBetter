@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas 粒子特效</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0
+        }
+
+        #bgCanvas {
+            display: block;
+            background-color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <canvas id="bgCanvas"></canvas>
+    </div>
+    <script>
+        var oCanvas = document.getElementById("bgCanvas")
+        var cxt = oCanvas.getContext('2d');
+        var w, h; // canvas宽高
+        var num = 200; // 粒子的数量
+        var data = []; // 保存（粒子）小圆点的数据
+        
+        init();
+
+        function init() {
+            w = oCanvas.width = window.innerWidth;
+            h = oCanvas.height = window.innerHeight;
+            for (var i = 0; i < num; i++) {
+                data[i] = {
+                    x: Math.random() * w,
+                    y: Math.random() * h,
+                    dx: Math.random() * 1 - 0.5,
+                    dy: Math.random() * 1 - 0.5
+                }
+                drawCycle(data[i].x, data[i].y);
+            }
+            connectLine();
+        }
+
+        function drawCycle(x, y) {
+            cxt.save();
+            cxt.fillStyle = 'pink';
+            cxt.beginPath();
+            cxt.arc(x, y, 1, 0, Math.PI * 2, false);
+            cxt.fill();
+            cxt.closePath();
+            cxt.restore();
+        }
+
+        function moveCycle() {
+            cxt.clearRect(0, 0, w, h);
+            for (var i = 0; i < num; i++) {
+                data[i].x += data[i].dx;
+                data[i].y += data[i].dy;
+                if (data[i].x < 0 || data[i].x >w) {
+                    data[i].dx = -data[i].dx;
+                }
+                if (data[i].y < 0 || data[i].y >h) {
+                    data[i].dy = -data[i].dy;
+                }
+                drawCycle(data[i].x, data[i].y);
+            }
+            connectLine();
+        }
+
+        function connectLine() {
+            cxt.clearRect(0, 0, w, h);
+            for (var i = 0; i < num; i++) {
+                for (var j = 0; j < num; j++) {
+                    
+
+                    if (Math.abs(data[i].x-data[j].x) < 100 && Math.abs(data[i].y-data[j].y) < 100) {
+                        cxt.beginPath();
+                        var linearGradient = createGradient(data[i].x,data[i].y,data[j].x,data[j].y)
+
+                        cxt.strokeStyle = linearGradient;
+                        cxt.lineWidth = 0.3;
+                        cxt.moveTo(data[i].x,data[i].y);
+                        cxt.lineTo(data[j].x,data[j].y);
+                        cxt.stroke();
+                        cxt.closePath();
+                    }
+                }
+            }
+        }
+
+        function createGradient(x1,y1,x2,y2) {
+            var linearGradient = cxt.createLinearGradient(x1,y1,x2,y2);
+            linearGradient.addColorStop(0,'rgba(255,255,255,0.8)');
+            linearGradient.addColorStop(0.3,'rgba(255,255,255,0.2)');
+            linearGradient.addColorStop(0.5,'rgba(255,255,255,0)');
+            linearGradient.addColorStop(0.8,'rgba(255,255,255,0.2)');
+            linearGradient.addColorStop(1,'rgba(255,255,255,0.8)');
+            return linearGradient;
+        }
+
+        setInterval(function () {
+            moveCycle();
+        }, 1000/60)
+    </script>
+</body>
+
+</html>
