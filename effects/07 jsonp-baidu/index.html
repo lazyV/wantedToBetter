@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>baidu</title>
+    <style>
+        body{
+            padding: 0;
+            margin: 0;
+        }
+        #text{
+            width: 600px;
+            height: 30px;
+            display: block;
+            margin: 0  auto;
+        }
+        #show{
+            width: 600px;
+            margin: 0  auto
+        }
+        #show ul{
+            text-decoration: none;
+        }
+        #show ul li:hover{
+            color: #333;
+            background-color: #cccccc;
+        }
+    </style>
+</head>
+<body>
+<div style="margin-top: 100px;"></div>
+<input type="text" id="text">
+<div id="show">
+    <ul>
+
+    </ul>
+</div>
+<script>
+    var oText = document.getElementById("text");
+    var ul = document.querySelector("#show>ul")
+    oText.onkeyup = function(){
+        var val=this.value; // 获取文本框内容
+        var oScript = document.createElement('script')
+        oScript.src="https://sp0.baidu.com/5a1Fazu8AA54nxGko9WTAnF6hhy/su?wd="+val+"&cb=vv"
+        document.body.appendChild(oScript)
+    }
+    function vv(arg){
+        var data = arg.s,
+            liList = '';
+        ul.innerHTML="";
+        if(data.length){
+            for(var word of data){
+                liList+="<li>"+word+"</li>"
+            }
+            ul.innerHTML = liList
+        }
+    }
+    /*
+    * 总结：对网页url的理解
+    *
+    * */
+</script>
+</body>
+</html>
