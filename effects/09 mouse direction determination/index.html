@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="Keywords" content="">
+	<meta name="Description" content="">
+	<title>鼠标方位判断</title>
+	<style type="text/css">
+		* {
+			padding: 0;
+			margin: 0
+		}
+
+		img {
+			vertical-align: middle;
+		}
+
+		#box {
+			width: 1250px;
+			height: 360px;
+			margin: 100px auto;
+			font-family: 'Microsoft yahei';
+		}
+
+		#box ul li {
+			list-style: none;
+			float: left;
+			margin: 0 10px;
+			position: relative;
+			overflow: hidden;
+		}
+
+		#box ul li a {
+			width: 230px;
+			height: 360px;
+			position: absolute;
+			left: 0;
+			top: 360px;
+			background: url("images/new-bg.png");
+			text-decoration: none;
+		}
+
+		#box ul li a p {
+			color: #fff;
+			font-size: 14px;
+			text-align: center;
+		}
+
+		#box ul li a p.p1 {
+			padding-top: 160px;
+		}
+	</style>
+</head>
+
+<body>
+	<div id='box'>
+		<ul id="list">
+			<li>
+				<img src='images/1.jpg' />
+				<a href='#'>
+					<p class='p1'>秋冬上新 领券立减20</p>
+					<p>点击进入</p>
+				</a>
+			</li>
+			<li>
+				<img src='images/2.jpg' />
+				<a href='#'>
+					<p class='p1'>钜惠满138减15</p>
+					<p>点击进入</p>
+				</a>
+			</li>
+			<li>
+				<img src='images/3.jpg' />
+				<a href='#'>
+					<p class='p1'>冬装尖品 强势登陆</p>
+					<p>点击进入</p>
+				</a>
+			</li>
+			<li>
+				<img src='images/4.jpg' />
+				<a href='#'>
+					<p class='p1'>十一国庆除出游季</p>
+					<p>购新衣才够【型】</p>
+				</a>
+			</li>
+			<li>
+				<img src='images/5.jpg' />
+				<a href='#'>
+					<p class='p1'>秋上新</p>
+					<p>点击进入</p>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<script>
+		/*
+			通过DOM实现鼠标方向判断
+			1. 获取所有的li 循环遍历 li 确定鼠标进入的是哪一个li
+			2. 鼠标方向判断
+				2.1 鼠标移入的方向 判断
+				2.2 遮罩层的运动动画
+		*/
+		var oBox = document.getElementById('box'),
+			aLi = document.getElementsByTagName('li');
+
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].onmouseenter = function (e) { // 鼠标移入
+				move.call(this, e);
+			}
+			aLi[i].onmouseleave = function (e) { // 鼠标移出
+				move.call(this, e);
+			}
+		}
+
+		function move(e) {
+			var x = e.clientX;
+			var y = e.clientY;
+			var oT = this.offsetTop;
+			var oB = oT + this.offsetHeight;
+			var oL = this.offsetLeft;
+			var oR = oL + this.offsetWidth;
+
+			// 差值
+			var diffT = Math.abs(y - oT);
+			var diffR = Math.abs(x - oR);
+			var diffB = Math.abs(y - oB);
+			var diffL = Math.abs(x - oL);
+
+			var minDiff = Math.min(diffT, diffR, diffB, diffL);
+
+			var val = e.type.toLowerCase();
+
+			switch (minDiff) {
+				case diffT:
+					moveTo("top", val, this, -360, 0);
+					break;
+				case diffR:
+					moveTo("left", val, this, 230, 0);
+					break;
+				case diffB:
+					moveTo("top", val, this, 360, 0);
+					break;
+				case diffL:
+					moveTo("left", val, this, -230, 0);
+					break;
+			}
+
+		}
+
+		function moveTo(aspect, eType, aim, from, to) {
+			if (aspect == "top") {
+				if (eType == "mouseenter") {
+					aim.children[1].css(aspect, from).enter(aspect, to);
+				} else if (eType == "mouseleave") {
+					aim.children[1].leave(aspect, from)
+				}
+			}
+			if (aspect == "left") {
+				if (eType == "mouseenter") {
+					aim.children[1].css(aspect, from).enter(aspect, to);
+				} else {
+					aim.children[1].leave(aspect, from)
+				}
+			}
+		}
+
+		// 链式动画封装
+		// 原型封装以实现继承
+		Node.prototype.css = function (aspect, from) {
+			if (aspect == "top") {
+				this.style.transition = "none";
+				this.style[aspect] = from + "px"
+				this.style.left = "0px";
+			}
+			if (aspect == "left") {
+				this.style.transition = "none";
+				this.style[aspect] = from + "px"
+				this.style.top = "0px";
+			}
+			return this;
+		}
+
+		Node.prototype.enter = function (aspect, to) {
+			setTimeout(function () {
+				this.style[aspect] = to + "px";
+				this.style.transition = ".2s";
+			}.bind(this), 0)
+			return this;
+		}
+		
+		Node.prototype.leave = function (aspect, from) {
+			this.style[aspect] = from + "px";
+			this.style.transition = ".2s";
+			return this;
+		}
+	</script>
+</body>
+
+</html>
