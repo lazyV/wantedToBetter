@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>绘制数字 并添加动态小点</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: teal;
+        }
+
+        .btns {
+            margin: 20px 0;
+        }
+
+        .btns .digit {
+            border: 1px solid white;
+            outline: none;
+            background: none;
+            color: white;
+            font-size: 20px;
+            padding: 5px 15px;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="btns">
+        <button class="digit">0</button>
+        <button class="digit">1</button>
+        <button class="digit">2</button>
+        <button class="digit">3</button>
+        <button class="digit">4</button>
+        <button class="digit">5</button>
+        <button class="digit">6</button>
+        <button class="digit">7</button>
+        <button class="digit">8</button>
+        <button class="digit">9</button>
+        <button class="digit">10</button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script src="js/digit.js"></script>
+    <script>
+        var ctx = canvas.getContext('2d'),
+            w = 900,
+            h = 100,
+            R = h / 20 - 1,
+            dotArr = [],
+            oTimer
+
+        canvas.width = w
+        canvas.height = h
+
+        document.querySelectorAll('.digit').forEach(function (e) {
+            e.addEventListener('click', function () {
+                parabolaDigit(this.innerText)
+            }, false)
+        })
+
+        function parabolaDigit(num) {
+            dotArr = initDots(num)
+
+            clearInterval(oTimer)
+            oTimer = null
+
+            oTimer = setInterval (function () {
+                // 清空画布
+                canvas.height = h
+
+                // 绘制数字
+                renderDigit(num)
+
+                // 绘制小球
+                renderDots(dotArr)
+
+                // 更新小点状态
+                updateDots(dotArr)
+
+            }, 30)
+        }
+
+        // 绘制点阵数字
+        function renderDigit (num) {
+            for (var j = 0; j < digit[num].length; j++) {
+                for (var i = 0; i < digit[num][j].length; i ++) {
+                    if (digit[num][j][i] == 1) {
+                        ctx.beginPath()
+                        ctx.fillStyle = "#fff"
+                        ctx.arc((2 * i + 1 ) * (R + 1), (2 * j + 1 ) * (R + 1), R, 0, 2 * Math.PI)
+                        ctx.closePath()
+                        ctx.fill()
+                    }
+                }
+            }
+        }
+
+        // 收集小点相关数据数据
+        function initDots (num) {
+            var dotArr = []
+            
+            var numArr = [1, 2, 3, 4],
+                colorArr = ['pink', 'orange', 'yellow', 'skyblue', 'SpringGreen', 'Gold', 'coral', 'darkorchid', 'deepskyblue']
+
+            for (var j = 0; j < digit[num].length; j++) {
+                for (var i = 0; i < digit[num][j].length; i ++) {
+                    if (digit[num][j][i] == 1) {
+                        dotArr.push({
+                            x: (2 * i + 1 ) * (R + 1),
+                            y: (2 * j + 1 ) * (R + 1),
+                            color: colorArr[Math.floor(Math.random() * colorArr.length)],
+                            stepX: Math.floor(Math.random() * 10 - 5),
+                            stepY: -3 * numArr[Math.floor(Math.random() * numArr.length)],
+                            disY: 1
+                        })
+                    }
+                }
+            }
+            return dotArr
+        }
+
+        function updateDots (dotArr) {
+            for (var i = 0; i < dotArr.length; i ++) {
+                dotArr[i].stepY += dotArr[i].disY
+                dotArr[i].x += dotArr[i].stepX
+                dotArr[i].y += dotArr[i].stepY
+
+                if (dotArr[i].x > w + R || dotArr[i].y > h + R) {
+                    dotArr.splice(i, 1)
+                    i--
+                }
+            }
+        }
+
+        function renderDots (arr) {
+            for(var i = 0; i < arr.length; i++){
+            ctx.beginPath()
+            ctx.arc(arr[i].x, arr[i].y, R, 0,2*Math.PI)
+            ctx.fillStyle = arr[i].color
+            ctx.closePath()
+            ctx.fill()
+        }
+        }
+
+    </script>
+</body>
+
+</html>
