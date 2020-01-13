@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>绘制0-9的数字</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: teal;
+        }
+
+        .btns {
+            margin: 20px 0;
+        }
+
+        .btns .digit {
+            border: 1px solid white;
+            outline: none;
+            background: none;
+            color: white;
+            font-size: 20px;
+            padding: 5px 15px;
+            border-radius: 4px;
+            margin-left: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="btns">
+        <button class="digit">0</button>
+        <button class="digit">1</button>
+        <button class="digit">2</button>
+        <button class="digit">3</button>
+        <button class="digit">4</button>
+        <button class="digit">5</button>
+        <button class="digit">6</button>
+        <button class="digit">7</button>
+        <button class="digit">8</button>
+        <button class="digit">9</button>
+        <button class="digit">10</button>
+    </div>
+    <canvas id="canvas"></canvas>
+    <script src="js/digit.js"></script>
+    <script>
+        
+        document.querySelectorAll('.digit').forEach(function (e) {
+            e.addEventListener('click', function () {
+                var n = this.innerText
+                drawDigit(n)
+            }, false)
+        })
+
+        function drawDigit(num) {
+            var ctx = canvas.getContext('2d'),
+                w = 900,
+                h = 100
+                R = h / 20 - 1
+            canvas.width = w
+            canvas.height = h
+
+            for (var j = 0; j < digit[num].length; j++) {
+                for (var i = 0; i < digit[num][j].length; i ++) {
+                    if (digit[num][j][i] == 1) {
+                        ctx.fillStyle = "#fff"
+                        ctx.beginPath()
+                        ctx.arc((2 * i + 1 ) * (R + 1), (2 * j + 1 ) * (R + 1), R, 0, 2 * Math.PI)
+                        ctx.closePath()
+                        ctx.fill()
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
