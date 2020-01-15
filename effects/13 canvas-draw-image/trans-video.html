@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>draw video</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        canvas{
+            display: block;
+            margin: 20px auto;
+            border: 1px solid black;
+        }
+        #vVideo {
+            display: block;
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="vCanvas"></canvas>
+    <canvas id="vCanvas1"></canvas>
+    <video src="./images/恋爱循环.mp4" id='vVideo' autoplay muted controls loop></video>
+    <script>
+        ~~function(){
+            var cvs = document.getElementById('vCanvas');
+            var cvs1 = document.getElementById('vCanvas1');
+            var ctx = cvs.getContext('2d');
+            var ctx1 = cvs1.getContext('2d');
+            var oVideo = document.getElementById('vVideo');
+
+            var scale = 1;
+            var width, height;
+
+            var string = '#&@%$w*+o?!;^,. ';
+            var stringArr = string.split('');
+
+            oVideo.addEventListener('loadeddata', function(){
+                width = cvs.width = cvs1.width = this.videoWidth*scale;
+                height = cvs.height = cvs1.height = this.videoHeight*scale;
+                setInterval(function(){
+                    draw();
+                }, 0)
+            })
+
+            cvs.addEventListener('click', function(){
+                oVideo.muted = oVideo.muted ? false : true;
+            })
+
+            function draw() {
+                ctx.clearRect(0, 0, width, height);
+                ctx1.clearRect(0, 0, width, height);
+                ctx.drawImage(oVideo, 0, 0, width, height);
+                const imgData = ctx.getImageData(0, 0, width, height).data;
+                let res;
+                for (let i = 0; i < width; i += 6) {
+                    for (let j = 0; j < height; j += 4) {
+                        let index = (j * width + i)*4;
+                        let r = imgData[index];
+                        let g = imgData[index + 1];
+                        let b = imgData[index + 2];
+                        res = stringArr[~~((r*0.299 + g*0.587 + b*0.114)/16)];
+                        ctx1.fillText(res, i, j+4);
+                    }
+                }
+            }
+        }()
+        
+    </script>
+</body>
+</html>
