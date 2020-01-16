@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>slider stu</title>
+    <style>
+        *{padding: 0; margin: 0;}
+        html,body {
+            height: 100%;
+            background-color: black;
+        }
+    </style>
+    <link rel="stylesheet" href="./css/slider.css">
+    <script src="http://code.jquery.com/jquery-1.12.4.js" integrity="sha256-Qw82+bXyGq6MydymqBxNPYTaUXXq7c8v3CwiYwLLNXU=" crossorigin="anonymous"></script>
+    <script src="./js/slider.js"></script>
+
+</head>
+
+<body>
+    <div id="imgBar">
+
+    </div>
+    <script>
+        $("#imgBar").slider({
+        imgs: [
+            "./image/1.jpg",
+            "./image/2.jpg",
+            "./image/3.jpg",
+            "./image/4.jpg",
+            "./image/5.jpg"],
+        scale: 10/3,
+        border: true,
+        showBar: true,
+        delay: 2200,
+        x: 10,
+        y: 3
+    });
+
+    </script>
+</body>
+
+</html>
