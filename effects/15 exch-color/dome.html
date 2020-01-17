@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>canvas</title>
+    <style>
+        *{padding: 0; margin: 0}
+        canvas{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas width = 655 height = 740></canva>
+    <script>
+        var oCanvas = document.querySelector('canvas');
+        var ctx = oCanvas.getContext('2d');
+        // 预加载图片
+        var flag = false;
+        var clearUrl = './image/clear.png';
+
+        var img = new Image();
+        img.src = './image/gray.jpg';
+        img.onload = function() {            
+            oCanvas.style.background = 'url("./image/color.jpg")';
+            oCanvas.style.backgroundSize = "100% 100%";
+            ctx.drawImage(img, 0, 0, img.width, img.height);
+            flag = true;
+        }
+
+        var clearImg = new Image();
+        clearImg.src = clearUrl;
+        clearImg.onload = function() {
+            oCanvas.addEventListener('click', function(e) {
+                var width = 0,
+                speed = 8;
+                if (flag) {
+                    flag = false;
+                    ctx.globalCompositeOperation = "destination-out";
+                    window.requestAnimationFrame(draw);
+                
+                    function draw() {
+                        if (width > 2000) {
+                            flag = true;
+                            return ;
+                        }
+                        width += speed;
+                        var x = e.layerX,
+                            y = e.layerY;
+                            console.log(x,y);
+                        ctx.drawImage(clearImg, x - (width / 2), y - (width / 2), width, width);
+                        window.requestAnimationFrame(draw);
+                    }
+                }
+            }, false)
+        }
+    </script>
+</body>
+</html>
