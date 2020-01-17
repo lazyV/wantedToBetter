@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>刮刮乐效果 -- canvas</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+        }
+        #vCanvas {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="vCanvas" width = 655 height = 740></canvas>
+    <script>
+        var oCanvas = document.querySelector('#vCanvas'),
+            ctx = oCanvas.getContext('2d'),
+            width = oCanvas.width,
+            height = oCanvas.height;
+
+        var sX,sY, // 鼠标的初始位置
+            lineWidth = 50, // 绘画线条的宽度
+            draw = false, // 判断是否能进行绘制
+            cleared = false; // 判断是否全部绘制
+
+        oCanvas.style.backgroundImage = "url('./image/color.jpg')";
+        oCanvas.style.backgroundSize = "100% 100%";
+
+        ctx.beginPath();
+        ctx.fillStyle = "gray";
+        ctx.fillRect(0,0,width,height);
+        ctx.globalCompositeOperation = 'destination-out';
+
+        function mouseDown(e) { // 记录鼠标初始位置
+            if (cleared) {
+                return ;
+            }
+            sX = e.layerX;
+            sY = e.layerY;
+            draw = true;
+        }
+
+        function mouseMove(e) { // 会出鼠标划过的路径
+            if (!draw) {
+                return;
+            }
+            var cX = e.layerX,
+                cY = e.layerY;
+            ctx.beginPath();
+            ctx.lineWidth = lineWidth;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.moveTo(sX, sY);
+            ctx.lineTo(cX,cY);
+            ctx.stroke();
+            sX = cX;
+            sY = cY;
+        }
+
+        function mouseUp(e) { // 计算
+            if (cleared) {
+                return ;
+            }
+            draw = false;
+            ctx.closePath();
+            var maxArea = width * height*.3;
+            var imgData = ctx.getImageData(0,0,width,height).data;
+            var len = imgData.length;
+            var clearNum = 0;
+            for (var i = 0; i < len; i += 4) {
+                if (imgData[i] === 0 && imgData[i+1] === 0 && imgData[i+2] === 0) {
+                    clearNum ++;
+                }
+            }
+            if (maxArea < clearNum) {
+                ctx.fillStyle = 'white';
+                ctx.fillRect(0,0,width,height);
+                cleared = true;
+            }
+        }
+
+        oCanvas.onmousedown = mouseDown;
+        oCanvas.onmousemove = mouseMove;
+        oCanvas.onmouseup = mouseUp;
+        oCanvas.onmouseleave = mouseUp;
+       </script>
+</body>
+</html>
