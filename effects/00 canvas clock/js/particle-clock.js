@@ -139,7 +139,7 @@ function Clock(config) {
     this.W = canvas.width = config.width || 420
     this.H = canvas.height = config.height || 50
     
-    this.ballsColor = config.balsColor || 'white'
+    this.ballsColor = config.ballsColor || 'white'
     this.ctx = canvas.getContext('2d')
     // 粒子半径
     this.R = canvas.height / 20 - 1
