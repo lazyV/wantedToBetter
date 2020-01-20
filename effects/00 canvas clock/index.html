@@ -9,11 +9,12 @@
     </style>
 </head>
 <body>
-<canvas id="canvas"></canvas>
+<canvas id="canvas">您的浏览器暂不支持canvas</canvas>
 <script src="./js/particle-clock.js"></script>
 <script>
     new Clock({
-        selector: '#canvas'
+        selector: '#canvas',
+        ballsColor: 'pink'
     }).init()
 </script>
 </body>
